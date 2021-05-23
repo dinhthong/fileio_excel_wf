@@ -1,0 +1,8 @@
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\bin\Debug\FileIO.exe.config
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\bin\Debug\FileIO.exe
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\bin\Debug\FileIO.pdb
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\obj\Debug\FileIO.csprojResolveAssemblyReference.cache
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\obj\Debug\FileIO.Properties.Resources.resources
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\obj\Debug\FileIO.csproj.GenerateResource.Cache
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\obj\Debug\FileIO.exe
+c:\users\nguye\documents\visual studio 2015\Projects\FileIO\FileIO\obj\Debug\FileIO.pdb

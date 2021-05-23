@@ -1,0 +1,17 @@
+c:\Users\nguye\documents\visual studio 2015\Projects\FileIO\fileIO1\bin\Debug\fileIO1.exe.config
+c:\Users\nguye\documents\visual studio 2015\Projects\FileIO\fileIO1\bin\Debug\fileIO1.exe
+c:\Users\nguye\documents\visual studio 2015\Projects\FileIO\fileIO1\bin\Debug\fileIO1.pdb
+c:\Users\nguye\documents\visual studio 2015\Projects\FileIO\fileIO1\obj\Debug\fileIO1.exe
+c:\Users\nguye\documents\visual studio 2015\Projects\FileIO\fileIO1\obj\Debug\fileIO1.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\fileIO1\bin\Debug\fileIO1.exe.config
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\fileIO1\obj\Debug\fileIO1.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\fileIO1\obj\Debug\fileIO1.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\fileIO1\bin\Debug\fileIO1.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\fileIO1\bin\Debug\fileIO1.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\fileIO1\obj\Debug\fileIO1.csprojResolveAssemblyReference.cache
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\fileIO1\bin\Debug\fileIO1.exe.config
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\fileIO1\obj\Debug\fileIO1.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\fileIO1\obj\Debug\fileIO1.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\fileIO1\bin\Debug\fileIO1.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\fileIO1\bin\Debug\fileIO1.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\fileIO1\obj\Debug\fileIO1.csprojResolveAssemblyReference.cache

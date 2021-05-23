@@ -1,0 +1,31 @@
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\bin\Debug\ReadExcel.exe.config
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\bin\Debug\ReadExcel.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\bin\Debug\ReadExcel.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\obj\Debug\ReadExcel.csprojResolveAssemblyReference.cache
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\obj\Debug\ReadExcel.main.resources
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\obj\Debug\ReadExcel.Properties.Resources.resources
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\obj\Debug\ReadExcel.csproj.GenerateResource.Cache
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\obj\Debug\ReadExcel.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO\ReadExcel\obj\Debug\ReadExcel.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.exe.config
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.pdb
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.csprojResolveAssemblyReference.cache
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.main.resources
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.Properties.Resources.resources
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\LearnCsharp\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.csproj.GenerateResource.Cache
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\# Projects\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.exe.config
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\# Projects\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.exe
+C:\Users\nguye\Documents\Visual Studio 2015\Projects\# Projects\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.pdb
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.exe.config
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.exe
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\bin\Debug\ReadExcel.pdb
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.csprojAssemblyReference.cache
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.main.resources
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.Properties.Resources.resources
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.csproj.GenerateResource.cache
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.csproj.CoreCompileInputs.cache
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.exe
+C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\ReadExcel\obj\Debug\ReadExcel.pdb
