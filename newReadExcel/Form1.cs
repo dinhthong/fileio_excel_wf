@@ -17,6 +17,10 @@ namespace newReadExcel
     {
         public static int rowCount, colCount;
         public static string[,] decode;
+        Excel.Application xlApp;
+        Excel.Workbook xlWorkbook;
+        Excel._Worksheet xlWorksheet;
+        Excel.Range xlRange;
         public Form1()
         {
             InitializeComponent();
@@ -33,10 +37,23 @@ namespace newReadExcel
             getExcelFile();
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
             string input_txt_read = txt_input.Text;
+            string[] decode_first_col = new string[rowCount];
+            /*
+             * https://stackoverflow.com/questions/27427527/how-to-get-a-complete-row-or-column-from-2d-array-in-c-sharp
+             * To get a complete row out of an multi-dimensional array, you have to loop
+             */
+            for (int k=0; k < rowCount; k++)
+            {
+                decode_first_col[k] = decode[k, 0];
+            }
+            int index = Array.IndexOf(decode_first_col, input_txt_read);
 
+            txt_show2.Text = decode[index, 1];
+            Console.WriteLine(index.ToString());
             //string text = txt_input.Text;
             //input_txt_read = text;
         }
@@ -49,12 +66,10 @@ namespace newReadExcel
         public void getExcelFile()
         {
             //Create COM Objects. Create a COM object for everything that is referenced
-            Excel.Application xlApp = new Excel.Application();
-            
-            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(@"C:\Users\nguye\Downloads\Excel_file\FileIO_Excel\newReadExcel"+ @"/test3.xlsx");
-            //Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(@"E:\Cuahang_ap\Database.xlsx");
-            Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-            Excel.Range xlRange = xlWorksheet.UsedRange;
+            xlApp = new Excel.Application();
+            xlWorkbook = xlApp.Workbooks.Open(@"C:/Users/nguye/Downloads/Excel_file/fileio_excel_ws/newReadExcel" + @"/test3.xlsx");
+            xlWorksheet = xlWorkbook.Sheets[1];
+            xlRange = xlWorksheet.UsedRange;
             rowCount = xlRange.Rows.Count;
             colCount = xlRange.Columns.Count;
             decode = new string[rowCount, colCount];
@@ -79,12 +94,13 @@ namespace newReadExcel
             //rule of thumb for releasing com objects:
             //  never use two dots, all COM objects must be referenced and released individually
             //  ex: [somthing].[something].[something] is bad
-            Console.WriteLine(decode[0, 0] + decode[1, 1]);
+            //Console.WriteLine(decode[0, 0] + decode[1, 1]);
             //close and release
             xlWorkbook.Close();
             //quit and release
             xlApp.Quit();
         }
+
 
     }
 }
