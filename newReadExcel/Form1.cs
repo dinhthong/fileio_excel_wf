@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
-
+using System.IO;
+/*
+ resources: https://www.c-sharpcorner.com/UploadFile/mahesh/openfiledialog-in-C-Sharp/
+ */
 
 namespace newReadExcel
 {
@@ -21,25 +24,52 @@ namespace newReadExcel
         Excel.Workbook xlWorkbook;
         Excel._Worksheet xlWorksheet;
         Excel.Range xlRange;
+        string file_path;
         public Form1()
         {
+            AllocConsole();
             InitializeComponent();
+            Shown += Form1_Shown;
         }
+        /*
+         * Open console in Windows C# Form.
+         https://stackoverflow.com/questions/18601515/how-to-use-console-writeline-in-windows-forms-application
+         */
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
         /*
          Occurs before a form is displayed for the first time.
          */
         private void Form1_Load(object sender, System.EventArgs e)
         {
-            getExcelFile();
+            readExcelFile();
+
+        }
+        string io_dir_text;
+        /*
+         
+         https://stackoverflow.com/questions/7462748/how-to-run-code-when-form-is-shown
+        */
+        string temp_txt_path;
+        private void Form1_Shown(object sender, System.EventArgs e)
+        {
+            temp_txt_path = Application.StartupPath + @"working_dir_path.txt";
+            io_dir_text = System.IO.File.ReadAllText(temp_txt_path);
+            txt_filedir.Text = io_dir_text;
+            file_path = io_dir_text;
+            readExcelFile();
+            // MessageBox.Show("You are in the Form.Shown event.");
         }
         private void read_Click(object sender, EventArgs e)
         {
-            getExcelFile();
+            readExcelFile();
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Console.WriteLine(Application.StartupPath + @"working_dir_path.txt");
+            //Console.WriteLine(io_dir_text);
+            //Console.WriteLine(Application.StartupPath);
             string input_txt_read = txt_input.Text;
             string[] decode_first_col = new string[rowCount];
             /*
@@ -51,9 +81,15 @@ namespace newReadExcel
                 decode_first_col[k] = decode[k, 0];
             }
             int index = Array.IndexOf(decode_first_col, input_txt_read);
-
-            txt_show2.Text = decode[index, 1];
-            Console.WriteLine(index.ToString());
+            if (decode_first_col.Contains(input_txt_read))
+            {
+                txt_show2.Text = decode[index, 1];
+            }
+            else
+            {
+                MessageBox.Show("Doesn't contain");
+            }
+            //Console.WriteLine(index.ToString());
             //string text = txt_input.Text;
             //input_txt_read = text;
         }
@@ -63,11 +99,47 @@ namespace newReadExcel
 
         }
 
-        public void getExcelFile()
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+        
+        private void btn_browse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = @"C:\Users\nguye\Downloads\Excel_file_ws\fileio_excel_ws\newReadExcel";
+            /*
+             To be opened Supported files
+             */
+            openFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (openFileDialog1.FileName != file_path)
+                {
+                    file_path = openFileDialog1.FileName;
+                    txt_filedir.Text = openFileDialog1.FileName;
+                    /*
+                     if file dir is changed, perform readExcel
+                     */
+                    readExcelFile();
+                    /*
+                     
+                     */
+                    File.WriteAllText(temp_txt_path, file_path);
+
+                }
+            }
+
+        }
+
+        public void readExcelFile()
         {
             //Create COM Objects. Create a COM object for everything that is referenced
             xlApp = new Excel.Application();
-            xlWorkbook = xlApp.Workbooks.Open(@"C:/Users/nguye/Downloads/Excel_file/fileio_excel_ws/newReadExcel" + @"/test3.xlsx");
+            xlWorkbook = xlApp.Workbooks.Open(file_path);
             xlWorksheet = xlWorkbook.Sheets[1];
             xlRange = xlWorksheet.UsedRange;
             rowCount = xlRange.Rows.Count;
@@ -75,6 +147,7 @@ namespace newReadExcel
             decode = new string[rowCount, colCount];
             //iterate over the rows and columns and print to the console as it appears in the file
             //excel is not zero based!!
+            Console.WriteLine("Start reading data from a new excel file");
             for (int i = 1; i <= rowCount; i++)
             {
                 for (int j = 1; j <= colCount; j++)
@@ -82,7 +155,8 @@ namespace newReadExcel
                     if (xlRange.Cells[i, j] != null && ((Excel.Range)xlRange.Cells[i, j]).Value2 != null)
                     {
                         decode[i - 1, j - 1] = ((Excel.Range)xlRange.Cells[i, j]).Value2.ToString();
-                        richTextBox1.Text += Environment.NewLine + decode[i - 1, j - 1];
+                        
+                        Console.WriteLine(decode[i - 1, j - 1].ToString());
                     }
                 }
             }

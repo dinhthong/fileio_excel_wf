@@ -36,6 +36,9 @@ namespace newReadExcel
             this.txt_input = new System.Windows.Forms.TextBox();
             this.txt_show2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.txt_filedir = new System.Windows.Forms.TextBox();
+            this.btn_browse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // read
@@ -58,7 +61,7 @@ namespace newReadExcel
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(308, 44);
+            this.button1.Location = new System.Drawing.Point(334, 44);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 55);
             this.button1.TabIndex = 2;
@@ -93,18 +96,42 @@ namespace newReadExcel
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 29);
+            this.label1.Location = new System.Drawing.Point(33, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Input";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // txt_filedir
+            // 
+            this.txt_filedir.Location = new System.Drawing.Point(70, 12);
+            this.txt_filedir.Name = "txt_filedir";
+            this.txt_filedir.Size = new System.Drawing.Size(463, 23);
+            this.txt_filedir.TabIndex = 7;
+            // 
+            // btn_browse
+            // 
+            this.btn_browse.Location = new System.Drawing.Point(555, 12);
+            this.btn_browse.Name = "btn_browse";
+            this.btn_browse.Size = new System.Drawing.Size(75, 23);
+            this.btn_browse.TabIndex = 8;
+            this.btn_browse.Text = "...DIR";
+            this.btn_browse.UseVisualStyleBackColor = true;
+            this.btn_browse.Click += new System.EventHandler(this.btn_browse_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_browse);
+            this.Controls.Add(this.txt_filedir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_show2);
             this.Controls.Add(this.txt_input);
@@ -128,6 +155,9 @@ namespace newReadExcel
         private System.Windows.Forms.TextBox txt_input;
         private System.Windows.Forms.TextBox txt_show2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.TextBox txt_filedir;
+        private System.Windows.Forms.Button btn_browse;
     }
 }
 
