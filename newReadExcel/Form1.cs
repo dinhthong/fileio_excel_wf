@@ -43,9 +43,7 @@ namespace newReadExcel
          */
         private void Form1_Load(object sender, System.EventArgs e)
         {
-            //   readExcelFile();
-            startCol = 0;
-            endCol = 3;
+          
         }
         string io_dir_text;
         /*
@@ -59,8 +57,13 @@ namespace newReadExcel
             io_dir_text = System.IO.File.ReadAllText(temp_txt_path);
             txt_filedir.Text = io_dir_text;
             file_path = io_dir_text;
-
+            txt_input.Text = "2019-";
             readExcelFile();
+            /*
+             move this code block to here to be effective
+             */
+            startCol = 1;
+            endCol = 3;
         }
         private void read_Click(object sender, EventArgs e)
         {
@@ -69,6 +72,7 @@ namespace newReadExcel
 
         private void button1_Click(object sender, EventArgs e)
         {
+            txt_show2.Text = "";
             string input_txt_read = txt_input.Text;
             string[] decode_first_col = new string[rowCount];
             /*
@@ -77,20 +81,22 @@ namespace newReadExcel
              */
             for (int k=0; k < rowCount; k++)
             {
-                decode_first_col[k] = excel_values[k, 0];
+                decode_first_col[k] = excel_values[k, startCol];
+               // Console.WriteLine(decode_first_col[k].ToString());
             }
             int index = Array.IndexOf(decode_first_col, input_txt_read);
             if (decode_first_col.Contains(input_txt_read))
             {
-                txt_show2.Text = excel_values[index, 1];
+                lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
+                txt_show2.Text = excel_values[index, startCol+1];
+                
+               // lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
             }
             else
             {
-                MessageBox.Show("Doesn't contain");
+                lb_out_stt.Text = "Can't find a match";
+                txt_show2.Text = "NaN";
             }
-            //Console.WriteLine(index.ToString());
-            //string text = txt_input.Text;
-            //input_txt_read = text;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -102,7 +108,13 @@ namespace newReadExcel
         {
 
         }
-        
+
+        private void btn_copy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(txt_show2.Text);
+            txt_show2.Text = "";
+        }
+
         private void btn_browse_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -140,11 +152,13 @@ namespace newReadExcel
             //Create COM Objects. Create a COM object for everything that is referenced
             xlApp = new Excel.Application();
             if (System.IO.File.Exists(file_path)) {
-                xlWorkbook = xlApp.Workbooks.Open(file_path);
+                xlWorkbook = xlApp.Workbooks.Open(file_path, ReadOnly:true, Password: "m3e");
                 xlWorksheet = xlWorkbook.Sheets[1];
                 xlRange = xlWorksheet.UsedRange;
                 rowCount = xlRange.Rows.Count;
                 colCount = xlRange.Columns.Count;
+                Console.WriteLine(rowCount.ToString());
+                Console.WriteLine(colCount.ToString());
                 excel_values = new string[rowCount, colCount];
                 //iterate over the rows and columns and print to the console as it appears in the file
                 //excel is not zero based!!
@@ -161,8 +175,6 @@ namespace newReadExcel
                     }
                 }
                 Console.WriteLine("Reading new file done");
-                //      xlRange.Cells[9, 8].Value2 = "hello";
-                //      xlRange.Cells[9, 15].Value2 = "hello2";
                 //cleanup
                 GC.Collect();
                 GC.WaitForPendingFinalizers();

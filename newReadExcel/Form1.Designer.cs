@@ -36,13 +36,15 @@ namespace newReadExcel
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.txt_filedir = new System.Windows.Forms.TextBox();
             this.btn_browse = new System.Windows.Forms.Button();
+            this.lb_out_stt = new System.Windows.Forms.Label();
+            this.btn_copy = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(334, 44);
+            this.button1.Location = new System.Drawing.Point(244, 61);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 55);
+            this.button1.Size = new System.Drawing.Size(111, 38);
             this.button1.TabIndex = 2;
             this.button1.Text = "Read_MAC";
             this.button1.UseVisualStyleBackColor = true;
@@ -50,7 +52,7 @@ namespace newReadExcel
             // 
             // txt_input
             // 
-            this.txt_input.Location = new System.Drawing.Point(70, 61);
+            this.txt_input.Location = new System.Drawing.Point(12, 64);
             this.txt_input.Multiline = true;
             this.txt_input.Name = "txt_input";
             this.txt_input.Size = new System.Drawing.Size(186, 35);
@@ -58,10 +60,10 @@ namespace newReadExcel
             // 
             // txt_show2
             // 
-            this.txt_show2.Location = new System.Drawing.Point(504, 61);
+            this.txt_show2.Location = new System.Drawing.Point(386, 61);
             this.txt_show2.Multiline = true;
             this.txt_show2.Name = "txt_show2";
-            this.txt_show2.Size = new System.Drawing.Size(178, 35);
+            this.txt_show2.Size = new System.Drawing.Size(447, 32);
             this.txt_show2.TabIndex = 5;
             // 
             // label1
@@ -96,11 +98,32 @@ namespace newReadExcel
             this.btn_browse.UseVisualStyleBackColor = true;
             this.btn_browse.Click += new System.EventHandler(this.btn_browse_Click);
             // 
+            // lb_out_stt
+            // 
+            this.lb_out_stt.AutoSize = true;
+            this.lb_out_stt.Location = new System.Drawing.Point(504, 40);
+            this.lb_out_stt.Name = "lb_out_stt";
+            this.lb_out_stt.Size = new System.Drawing.Size(13, 15);
+            this.lb_out_stt.TabIndex = 9;
+            this.lb_out_stt.Text = "..";
+            // 
+            // btn_copy
+            // 
+            this.btn_copy.Location = new System.Drawing.Point(839, 61);
+            this.btn_copy.Name = "btn_copy";
+            this.btn_copy.Size = new System.Drawing.Size(75, 32);
+            this.btn_copy.TabIndex = 10;
+            this.btn_copy.Text = "Copy";
+            this.btn_copy.UseVisualStyleBackColor = true;
+            this.btn_copy.Click += new System.EventHandler(this.btn_copy_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 132);
+            this.ClientSize = new System.Drawing.Size(926, 132);
+            this.Controls.Add(this.btn_copy);
+            this.Controls.Add(this.lb_out_stt);
             this.Controls.Add(this.btn_browse);
             this.Controls.Add(this.txt_filedir);
             this.Controls.Add(this.label1);
@@ -122,6 +145,8 @@ namespace newReadExcel
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox txt_filedir;
         private System.Windows.Forms.Button btn_browse;
+        private System.Windows.Forms.Label lb_out_stt;
+        private System.Windows.Forms.Button btn_copy;
     }
 }
 
