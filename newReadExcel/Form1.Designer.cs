@@ -42,7 +42,7 @@ namespace newReadExcel
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(244, 61);
+            this.button1.Location = new System.Drawing.Point(252, 64);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 38);
             this.button1.TabIndex = 2;
@@ -52,15 +52,16 @@ namespace newReadExcel
             // 
             // txt_input
             // 
+            this.txt_input.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txt_input.Location = new System.Drawing.Point(12, 64);
             this.txt_input.Multiline = true;
             this.txt_input.Name = "txt_input";
-            this.txt_input.Size = new System.Drawing.Size(186, 35);
+            this.txt_input.Size = new System.Drawing.Size(209, 38);
             this.txt_input.TabIndex = 4;
             // 
             // txt_show2
             // 
-            this.txt_show2.Location = new System.Drawing.Point(386, 61);
+            this.txt_show2.Location = new System.Drawing.Point(386, 67);
             this.txt_show2.Multiline = true;
             this.txt_show2.Name = "txt_show2";
             this.txt_show2.Size = new System.Drawing.Size(447, 32);
@@ -109,11 +110,11 @@ namespace newReadExcel
             // 
             // btn_copy
             // 
-            this.btn_copy.Location = new System.Drawing.Point(839, 61);
+            this.btn_copy.Location = new System.Drawing.Point(839, 70);
             this.btn_copy.Name = "btn_copy";
             this.btn_copy.Size = new System.Drawing.Size(75, 32);
             this.btn_copy.TabIndex = 10;
-            this.btn_copy.Text = "Copy";
+            this.btn_copy.Text = "Cut";
             this.btn_copy.UseVisualStyleBackColor = true;
             this.btn_copy.Click += new System.EventHandler(this.btn_copy_Click);
             // 

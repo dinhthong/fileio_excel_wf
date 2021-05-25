@@ -53,11 +53,11 @@ namespace newReadExcel
         string temp_txt_path;
         private void Form1_Shown(object sender, System.EventArgs e)
         {
-            temp_txt_path = Application.StartupPath + @"working_dir_path.txt";
+            temp_txt_path = Application.StartupPath + @"..\..\..\" + @"working_dir_path.txt";
             io_dir_text = System.IO.File.ReadAllText(temp_txt_path);
             txt_filedir.Text = io_dir_text;
             file_path = io_dir_text;
-            txt_input.Text = "2019-";
+            txt_input.Text = "2019-0";
             readExcelFile();
             /*
              move this code block to here to be effective
@@ -97,6 +97,7 @@ namespace newReadExcel
                 lb_out_stt.Text = "Can't find a match";
                 txt_show2.Text = "NaN";
             }
+            txt_input.Text = "2019-0";
         }
 
         private void label1_Click(object sender, EventArgs e)
