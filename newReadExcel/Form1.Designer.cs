@@ -29,10 +29,7 @@ namespace newReadExcel
         /// </summary>
         private void InitializeComponent()
         {
-            this.read = new System.Windows.Forms.Button();
-            this.txt_show = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.txt_input = new System.Windows.Forms.TextBox();
             this.txt_show2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,24 +37,6 @@ namespace newReadExcel
             this.txt_filedir = new System.Windows.Forms.TextBox();
             this.btn_browse = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // read
-            // 
-            this.read.Location = new System.Drawing.Point(504, 267);
-            this.read.Name = "read";
-            this.read.Size = new System.Drawing.Size(126, 53);
-            this.read.TabIndex = 0;
-            this.read.Text = "READ";
-            this.read.UseVisualStyleBackColor = true;
-            this.read.Click += new System.EventHandler(this.read_Click);
-            // 
-            // txt_show
-            // 
-            this.txt_show.Location = new System.Drawing.Point(33, 208);
-            this.txt_show.Multiline = true;
-            this.txt_show.Name = "txt_show";
-            this.txt_show.Size = new System.Drawing.Size(310, 57);
-            this.txt_show.TabIndex = 1;
             // 
             // button1
             // 
@@ -68,14 +47,6 @@ namespace newReadExcel
             this.button1.Text = "Read_MAC";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(85, 283);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(360, 96);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
             // 
             // txt_input
             // 
@@ -129,16 +100,13 @@ namespace newReadExcel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 132);
             this.Controls.Add(this.btn_browse);
             this.Controls.Add(this.txt_filedir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_show2);
             this.Controls.Add(this.txt_input);
-            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.txt_show);
-            this.Controls.Add(this.read);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -147,11 +115,7 @@ namespace newReadExcel
         }
 
         #endregion
-
-        private System.Windows.Forms.Button read;
-        private System.Windows.Forms.TextBox txt_show;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TextBox txt_input;
         private System.Windows.Forms.TextBox txt_show2;
         private System.Windows.Forms.Label label1;
