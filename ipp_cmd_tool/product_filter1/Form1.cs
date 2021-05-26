@@ -31,9 +31,11 @@ namespace product_filter1
         string temp_txt_path;
         public ipp_cmd_tool()
         {
+         //   AllocConsole();
             InitializeComponent();
         }
-
+        //[System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        //private static extern bool AllocConsole();
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -115,8 +117,6 @@ namespace product_filter1
             int index = SerialList.IndexOf(input_txt_read);
             if (index != -1)
             {
-              //  index = Array.IndexOf(decode_first_col, input_txt_read);
-                // lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
                 txt_show.Text = excel_values[index, startCol + 1];
                 btn_copy.Enabled = true;
                 /*
@@ -124,43 +124,14 @@ namespace product_filter1
                  */
                 Clipboard.SetText(txt_show.Text);
                 lb_kq.Text = "The output value for input " + input_txt_read.ToString() + " is:";
-                //txt_status.Text = "Read thanh cong";
             }
             else
             {
                 lb_kq.Text = "Khong tim thay";
                 txt_show.Text = "NaN";
-               // txt_status.Text = "";
             }
 
-            //if (SerialList.Any(str => str.Contains(input_txt_read))) {
-            //    MessageBox.Show("Yes");
-
-            //    MessageBox.Show(index2.ToString());
-            //}
-            //else
-            //{
-
-            //}
-            //if (decode_first_col.Contains(input_txt_read))
-            //{ 
-            //    index = Array.IndexOf(decode_first_col, input_txt_read);
-            //// lb_kq.Text = "The output value for input " + input_txt_read + " is:";
-            //     txt_show.Text = excel_values[index, startCol + 1];
-            //    btn_copy.Enabled = true;
-            //    /*
-            //     Position the Cursor at the Beginning or End of Text in a TextBox Control
-            //     */
-            //    Clipboard.SetText(txt_show.Text);
-            //    txt_status.Text = "Read thanh cong";
-            //}
-            //else
-            //{ 
-            //    txt_show.Text = "NaN";
-            //    txt_status.Text = "Can't find a match";
-            //}
             txt_input_serial.Text = "2019-0";
-            //txt_input_serial.Select(txt_input_serial.Text.Length, 0);
         }
 
         private void btn_copy_Click(object sender, EventArgs e)
@@ -175,6 +146,7 @@ namespace product_filter1
         private void ipp_cmd_tool_Shown(object sender, EventArgs e)
         {
             temp_txt_path = Application.StartupPath + @"..\..\..\..\" + @"working_dir_path.txt";
+            
             io_dir_text = System.IO.File.ReadAllText(temp_txt_path);
             txt_filepath.Text = io_dir_text;
             file_path = io_dir_text;
@@ -185,6 +157,7 @@ namespace product_filter1
             startCol = 1;
             endCol = 3;
             readExcelFile();
+            lb_kq.Text=temp_txt_path.ToString();
         }
 
         private void btn_read_KeyDown(object sender, KeyEventArgs e)
@@ -253,7 +226,7 @@ namespace product_filter1
                 excel_values = new string[rowCount, colCount];
                 //iterate over the rows and columns and print to the console as it appears in the file
                 //excel is not zero based!!
-                txt_status.Text = "Start reading data from a new excel file";
+                txt_status.Text = "Start reading data from a new excel file:";
                 for (int i = 1; i <= rowCount; i++)
                 {
                     for (int j = 1; j <= colCount; j++)
@@ -261,7 +234,7 @@ namespace product_filter1
                         if (xlRange.Cells[i, j] != null && ((Excel.Range)xlRange.Cells[i, j]).Value2 != null)
                         {
                             excel_values[i - 1, j - 1] = ((Excel.Range)xlRange.Cells[i, j]).Value2.ToString();
-                            // Console.WriteLine(excel_values[i - 1, j - 1].ToString());
+                            Console.WriteLine(excel_values[i - 1, j - 1].ToString());
                         }
                     }
                 }
