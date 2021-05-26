@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Linq;
+using System.Configuration;
+
 namespace product_filter1
 {
     public partial class ipp_cmd_tool : Form
@@ -22,20 +24,18 @@ namespace product_filter1
         Excel.Workbook xlWorkbook;
         Excel._Worksheet xlWorksheet;
         Excel.Range xlRange;
-        string file_path;
+        string op_file_path;
         string io_dir_text;
+        string config_file_name = "ipp_program_config.txt";
         /*
          
          https://stackoverflow.com/questions/7462748/how-to-run-code-when-form-is-shown
         */
-        string temp_txt_path;
+        string config_txt_path;
         public ipp_cmd_tool()
         {
-         //   AllocConsole();
             InitializeComponent();
         }
-        //[System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        //private static extern bool AllocConsole();
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -108,7 +108,6 @@ namespace product_filter1
         {
             txt_show.Text = "";
             string input_txt_read = txt_input_serial.Text;
-            string[] decode_first_col = new string[rowCount];
             /*
              * https://stackoverflow.com/questions/27427527/how-to-get-a-complete-row-or-column-from-2d-array-in-c-sharp
              * To get a complete row out of an multi-dimensional array, you have to loop
@@ -140,16 +139,37 @@ namespace product_filter1
             Clipboard.SetText(txt_show.Text);
             txt_show.Text = "";
             btn_copy.Enabled = false;
-            txt_status.Text = "Copy thanh cong";
+            lb_status.Text = "Copy thanh cong";
         }
 
         private void ipp_cmd_tool_Shown(object sender, EventArgs e)
         {
-            temp_txt_path = Application.StartupPath + @"..\..\..\..\" + @"working_dir_path.txt";
-            
-            io_dir_text = System.IO.File.ReadAllText(temp_txt_path);
+            /*
+             http://diendan.congdongcviet.com/threads/t57761::lay-duong-dan-folder-trong-csharp.cpp
+             */
+            config_txt_path = System.IO.Directory.GetCurrentDirectory() + @"\" + config_file_name;
+            Console.WriteLine(config_txt_path);
+            /*
+             Create new config file if not exist
+            */
+            if (!File.Exists(config_txt_path))
+            { 
+                Console.WriteLine("File does not exist. Creating a new file");
+                /*
+                 Create a new blank .txt file
+                 */
+                File.CreateText(System.IO.Directory.GetCurrentDirectory() + @"\" + config_file_name);
+            }
+            else
+            {
+                Console.WriteLine("File exists");
+                /*
+                 Read the first line as excel file path.
+                 */
+                io_dir_text = System.IO.File.ReadAllText(config_txt_path);
+            }
             txt_filepath.Text = io_dir_text;
-            file_path = io_dir_text;
+            op_file_path = io_dir_text;
             txt_input_serial.Text = "2019-0";
             /*
              move this code block to here to be effective
@@ -157,15 +177,7 @@ namespace product_filter1
             startCol = 1;
             endCol = 3;
             readExcelFile();
-            lb_kq.Text=temp_txt_path.ToString();
-        }
-
-        private void btn_read_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btn_read_Click(this, new EventArgs());
-            }
+            Console.WriteLine(config_txt_path.ToString());
         }
 
         private void txt_input_serial_KeyDown(object sender, KeyEventArgs e)
@@ -190,10 +202,10 @@ namespace product_filter1
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (openFileDialog1.FileName != file_path)
+                if (openFileDialog1.FileName != op_file_path)
                 {
                     btn_read.Enabled = false;
-                    file_path = openFileDialog1.FileName;
+                    op_file_path = openFileDialog1.FileName;
                     txt_filepath.Text = openFileDialog1.FileName;
                     /*
                         if file dir is changed, perform readExcel
@@ -203,7 +215,11 @@ namespace product_filter1
                         https://www.c-sharpcorner.com/article/c-sharp-write-to-file/
                         Write string to the target text file
                      */
-                    File.WriteAllText(temp_txt_path, file_path);
+                    File.WriteAllText(config_txt_path, op_file_path);
+                    //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    //AppSettingsSection app = config.AppSettings;
+                    //app.Settings.Add("cg_file_path", op_file_path);
+                    //config.Save(ConfigurationSaveMode.Modified);
 
                 }
             }
@@ -212,21 +228,22 @@ namespace product_filter1
 
         public void readExcelFile()
         {
+            string read_temp_txt;
             //Create COM Objects. Create a COM object for everything that is referenced
             xlApp = new Excel.Application();
-            if (System.IO.File.Exists(file_path))
+            if (System.IO.File.Exists(op_file_path))
             {
-                xlWorkbook = xlApp.Workbooks.Open(file_path, ReadOnly: true, Password: "m3e");
+                xlWorkbook = xlApp.Workbooks.Open(op_file_path, ReadOnly: true, Password: "m3e");
                 xlWorksheet = xlWorkbook.Sheets[1];
                 xlRange = xlWorksheet.UsedRange;
                 rowCount = xlRange.Rows.Count;
                 colCount = xlRange.Columns.Count;
-                // Console.WriteLine(rowCount.ToString());
-                //  Console.WriteLine(colCount.ToString());
                 excel_values = new string[rowCount, colCount];
                 //iterate over the rows and columns and print to the console as it appears in the file
                 //excel is not zero based!!
-                txt_status.Text = "Start reading data from a new excel file:";
+                read_temp_txt = "Reading data from new file: ";
+                int read_size = rowCount * colCount;
+                int read_cnt = 0;
                 for (int i = 1; i <= rowCount; i++)
                 {
                     for (int j = 1; j <= colCount; j++)
@@ -234,7 +251,8 @@ namespace product_filter1
                         if (xlRange.Cells[i, j] != null && ((Excel.Range)xlRange.Cells[i, j]).Value2 != null)
                         {
                             excel_values[i - 1, j - 1] = ((Excel.Range)xlRange.Cells[i, j]).Value2.ToString();
-                            Console.WriteLine(excel_values[i - 1, j - 1].ToString());
+                            read_cnt++;
+                            lb_status.Text = read_temp_txt+ read_cnt.ToString() + "/" + read_size.ToString();
                         }
                     }
                 }
@@ -243,7 +261,7 @@ namespace product_filter1
                 {
                     SerialList.Add(excel_values[k, startCol]);
                 }
-                txt_status.Text = "Reading new file done";
+                lb_status.Text = "Reading new file done";
                 //  Console.WriteLine("Reading new file done");
                 //cleanup
                 GC.Collect();

@@ -34,8 +34,8 @@
             this.txt_show = new System.Windows.Forms.TextBox();
             this.btn_read = new System.Windows.Forms.Button();
             this.btn_copy = new System.Windows.Forms.Button();
-            this.txt_status = new System.Windows.Forms.TextBox();
             this.lb_kq = new System.Windows.Forms.Label();
+            this.lb_status = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txt_filepath
@@ -84,27 +84,16 @@
             this.btn_read.Text = "Read MAC";
             this.btn_read.UseVisualStyleBackColor = true;
             this.btn_read.Click += new System.EventHandler(this.btn_read_Click);
-            this.btn_read.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_read_KeyDown);
             // 
             // btn_copy
             // 
             this.btn_copy.Location = new System.Drawing.Point(589, 179);
             this.btn_copy.Name = "btn_copy";
-            this.btn_copy.Size = new System.Drawing.Size(75, 23);
+            this.btn_copy.Size = new System.Drawing.Size(75, 31);
             this.btn_copy.TabIndex = 11;
             this.btn_copy.Text = "Copy CMD";
             this.btn_copy.UseVisualStyleBackColor = true;
             this.btn_copy.Click += new System.EventHandler(this.btn_copy_Click);
-            // 
-            // txt_status
-            // 
-            this.txt_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_status.Location = new System.Drawing.Point(161, 225);
-            this.txt_status.Name = "txt_status";
-            this.txt_status.ReadOnly = true;
-            this.txt_status.Size = new System.Drawing.Size(422, 29);
-            this.txt_status.TabIndex = 13;
-            this.txt_status.Text = "STATUS";
             // 
             // lb_kq
             // 
@@ -116,13 +105,23 @@
             this.lb_kq.TabIndex = 14;
             this.lb_kq.Text = "ket qua read";
             // 
+            // lb_status
+            // 
+            this.lb_status.AutoSize = true;
+            this.lb_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_status.Location = new System.Drawing.Point(47, 224);
+            this.lb_status.Name = "lb_status";
+            this.lb_status.Size = new System.Drawing.Size(75, 29);
+            this.lb_status.TabIndex = 15;
+            this.lb_status.Text = "status";
+            // 
             // ipp_cmd_tool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(770, 266);
+            this.Controls.Add(this.lb_status);
             this.Controls.Add(this.lb_kq);
-            this.Controls.Add(this.txt_status);
             this.Controls.Add(this.btn_copy);
             this.Controls.Add(this.btn_read);
             this.Controls.Add(this.txt_show);
@@ -145,8 +144,8 @@
         private System.Windows.Forms.TextBox txt_show;
         private System.Windows.Forms.Button btn_read;
         private System.Windows.Forms.Button btn_copy;
-        private System.Windows.Forms.TextBox txt_status;
         private System.Windows.Forms.Label lb_kq;
+        private System.Windows.Forms.Label lb_status;
     }
 }
 
