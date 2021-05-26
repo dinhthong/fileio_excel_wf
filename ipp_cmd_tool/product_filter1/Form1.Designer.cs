@@ -35,6 +35,7 @@
             this.btn_read = new System.Windows.Forms.Button();
             this.btn_copy = new System.Windows.Forms.Button();
             this.txt_status = new System.Windows.Forms.TextBox();
+            this.lb_kq = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txt_filepath
@@ -51,7 +52,7 @@
             this.btn_select_file.Name = "btn_select_file";
             this.btn_select_file.Size = new System.Drawing.Size(75, 23);
             this.btn_select_file.TabIndex = 7;
-            this.btn_select_file.Text = "button1";
+            this.btn_select_file.Text = "...";
             this.btn_select_file.UseVisualStyleBackColor = true;
             this.btn_select_file.Click += new System.EventHandler(this.btn_select_file_Click);
             // 
@@ -68,9 +69,9 @@
             // txt_show
             // 
             this.txt_show.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_show.Location = new System.Drawing.Point(23, 154);
+            this.txt_show.Location = new System.Drawing.Point(22, 179);
             this.txt_show.Name = "txt_show";
-            this.txt_show.Size = new System.Drawing.Size(540, 31);
+            this.txt_show.Size = new System.Drawing.Size(551, 31);
             this.txt_show.TabIndex = 9;
             // 
             // btn_read
@@ -87,7 +88,7 @@
             // 
             // btn_copy
             // 
-            this.btn_copy.Location = new System.Drawing.Point(589, 162);
+            this.btn_copy.Location = new System.Drawing.Point(589, 179);
             this.btn_copy.Name = "btn_copy";
             this.btn_copy.Size = new System.Drawing.Size(75, 23);
             this.btn_copy.TabIndex = 11;
@@ -98,18 +99,29 @@
             // txt_status
             // 
             this.txt_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_status.Location = new System.Drawing.Point(105, 216);
+            this.txt_status.Location = new System.Drawing.Point(161, 225);
             this.txt_status.Name = "txt_status";
             this.txt_status.ReadOnly = true;
             this.txt_status.Size = new System.Drawing.Size(422, 29);
             this.txt_status.TabIndex = 13;
             this.txt_status.Text = "STATUS";
             // 
+            // lb_kq
+            // 
+            this.lb_kq.AutoSize = true;
+            this.lb_kq.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_kq.Location = new System.Drawing.Point(89, 151);
+            this.lb_kq.Name = "lb_kq";
+            this.lb_kq.Size = new System.Drawing.Size(132, 25);
+            this.lb_kq.TabIndex = 14;
+            this.lb_kq.Text = "ket qua read";
+            // 
             // ipp_cmd_tool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(770, 266);
+            this.Controls.Add(this.lb_kq);
             this.Controls.Add(this.txt_status);
             this.Controls.Add(this.btn_copy);
             this.Controls.Add(this.btn_read);
@@ -134,6 +146,7 @@
         private System.Windows.Forms.Button btn_read;
         private System.Windows.Forms.Button btn_copy;
         private System.Windows.Forms.TextBox txt_status;
+        private System.Windows.Forms.Label lb_kq;
     }
 }
 

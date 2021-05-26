@@ -14,7 +14,7 @@ namespace product_filter1
         //string product_temp;
         //int index;
         //bool stop = false;
-
+        List<string> SerialList = new List<string>();
         public static int rowCount, colCount;
         public static int startCol, endCol;
         public static string[,] excel_values;
@@ -55,7 +55,7 @@ namespace product_filter1
         //private void bt_do_Click(object sender, EventArgs e)
         //{
         //    {
-                
+
         //       // string text_read = txt_1.Text;
         //        strStart = "<a href=\"/products/";
         //        strEnd = "</em>";
@@ -94,17 +94,13 @@ namespace product_filter1
         //{
         // //   toExcelFile();
         //}
-       // public static int rowCount, colCount;
-       // public static string[,] decode;
+        // public static int rowCount, colCount;
+        // public static string[,] decode;
 
         private void txt_2_TextChanged(object sender, EventArgs e)
         {
 
         }
-
-        //private void txt_input_serial_serial_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //}
 
         private void btn_read_Click(object sender, EventArgs e)
         {
@@ -115,35 +111,61 @@ namespace product_filter1
              * https://stackoverflow.com/questions/27427527/how-to-get-a-complete-row-or-column-from-2d-array-in-c-sharp
              * To get a complete row out of an multi-dimensional array, you have to loop
              */
-            for (int k = 0; k < rowCount; k++)
+
+            int index = SerialList.IndexOf(input_txt_read);
+            if (index != -1)
             {
-                decode_first_col[k] = excel_values[k, startCol];
-                // Console.WriteLine(decode_first_col[k].ToString());
-            }
-            int index = Array.IndexOf(decode_first_col, input_txt_read);
-            if (decode_first_col.Contains(input_txt_read))
-            {
-               // lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
+              //  index = Array.IndexOf(decode_first_col, input_txt_read);
+                // lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
                 txt_show.Text = excel_values[index, startCol + 1];
                 btn_copy.Enabled = true;
                 /*
                  Position the Cursor at the Beginning or End of Text in a TextBox Control
                  */
                 Clipboard.SetText(txt_show.Text);
-                txt_status.Text = "Read thanh cong";
+                lb_kq.Text = "The output value for input " + input_txt_read.ToString() + " is:";
+                //txt_status.Text = "Read thanh cong";
             }
             else
             {
-            //    lb_out_stt.Text = "Can't find a match";
+                lb_kq.Text = "Khong tim thay";
                 txt_show.Text = "NaN";
-                txt_status.Text = "Nan";
+               // txt_status.Text = "";
             }
+
+            //if (SerialList.Any(str => str.Contains(input_txt_read))) {
+            //    MessageBox.Show("Yes");
+
+            //    MessageBox.Show(index2.ToString());
+            //}
+            //else
+            //{
+
+            //}
+            //if (decode_first_col.Contains(input_txt_read))
+            //{ 
+            //    index = Array.IndexOf(decode_first_col, input_txt_read);
+            //// lb_kq.Text = "The output value for input " + input_txt_read + " is:";
+            //     txt_show.Text = excel_values[index, startCol + 1];
+            //    btn_copy.Enabled = true;
+            //    /*
+            //     Position the Cursor at the Beginning or End of Text in a TextBox Control
+            //     */
+            //    Clipboard.SetText(txt_show.Text);
+            //    txt_status.Text = "Read thanh cong";
+            //}
+            //else
+            //{ 
+            //    txt_show.Text = "NaN";
+            //    txt_status.Text = "Can't find a match";
+            //}
             txt_input_serial.Text = "2019-0";
-            txt_input_serial.Select(txt_input_serial.Text.Length, 0);
+            //txt_input_serial.Select(txt_input_serial.Text.Length, 0);
         }
 
         private void btn_copy_Click(object sender, EventArgs e)
         {
+            lb_kq.Text = "";
             Clipboard.SetText(txt_show.Text);
             txt_show.Text = "";
             btn_copy.Enabled = false;
@@ -157,12 +179,12 @@ namespace product_filter1
             txt_filepath.Text = io_dir_text;
             file_path = io_dir_text;
             txt_input_serial.Text = "2019-0";
-            readExcelFile();
             /*
              move this code block to here to be effective
              */
             startCol = 1;
             endCol = 3;
+            readExcelFile();
         }
 
         private void btn_read_KeyDown(object sender, KeyEventArgs e)
@@ -179,6 +201,7 @@ namespace product_filter1
             {
                 btn_read_Click(this, new EventArgs());
             }
+            txt_input_serial.Select(txt_input_serial.Text.Length, 0);
         }
 
         private void btn_select_file_Click(object sender, EventArgs e)
@@ -241,6 +264,11 @@ namespace product_filter1
                             // Console.WriteLine(excel_values[i - 1, j - 1].ToString());
                         }
                     }
+                }
+                SerialList.Clear();
+                for (int k = 0; k < rowCount; k++)
+                {
+                    SerialList.Add(excel_values[k, startCol]);
                 }
                 txt_status.Text = "Reading new file done";
                 //  Console.WriteLine("Reading new file done");
