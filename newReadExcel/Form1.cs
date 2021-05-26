@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 /*
@@ -28,7 +22,7 @@ namespace newReadExcel
         string file_path;
         public Form1()
         {
-            AllocConsole();
+           // AllocConsole();
             InitializeComponent();
             Shown += Form1_Shown;
         }
@@ -36,8 +30,8 @@ namespace newReadExcel
          * Open console in Windows C# Form.
          https://stackoverflow.com/questions/18601515/how-to-use-console-writeline-in-windows-forms-application
          */
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        private static extern bool AllocConsole();
+      //  [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+       // private static extern bool AllocConsole();
         /*
          Occurs before a form is displayed for the first time.
          */
@@ -68,6 +62,7 @@ namespace newReadExcel
         private void read_Click(object sender, EventArgs e)
         {
             readExcelFile();
+   
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -89,8 +84,11 @@ namespace newReadExcel
             {
                 lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
                 txt_show2.Text = excel_values[index, startCol+1];
-                
-               // lb_out_stt.Text = "The output value for input " + input_txt_read + " is:";
+                btn_copy.Enabled = true;
+                /*
+                 Position the Cursor at the Beginning or End of Text in a TextBox Control
+                 */
+                Clipboard.SetText(txt_show2.Text);
             }
             else
             {
@@ -98,6 +96,7 @@ namespace newReadExcel
                 txt_show2.Text = "NaN";
             }
             txt_input.Text = "2019-0";
+            txt_input.Select(txt_input.Text.Length, 0);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -114,6 +113,28 @@ namespace newReadExcel
         {
             Clipboard.SetText(txt_show2.Text);
             txt_show2.Text = "";
+            btn_copy.Enabled = false;
+        }
+
+        private void txt_show2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         keyPress event in C#
+         */
+        private void txt_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(this, new EventArgs());
+
+            }
+        }
+
+        private void Form1_Load_1(object sender, EventArgs e)
+        {
+
         }
 
         private void btn_browse_Click(object sender, EventArgs e)
@@ -131,10 +152,11 @@ namespace newReadExcel
             {
                 if (openFileDialog1.FileName != file_path)
                 {
+                    button1.Enabled = false;
                     file_path = openFileDialog1.FileName;
                     txt_filedir.Text = openFileDialog1.FileName;
                     /*
-                     if file dir is changed, perform readExcel
+                        if file dir is changed, perform readExcel
                      */
                     readExcelFile();
                     /*
@@ -158,12 +180,12 @@ namespace newReadExcel
                 xlRange = xlWorksheet.UsedRange;
                 rowCount = xlRange.Rows.Count;
                 colCount = xlRange.Columns.Count;
-                Console.WriteLine(rowCount.ToString());
-                Console.WriteLine(colCount.ToString());
+               // Console.WriteLine(rowCount.ToString());
+              //  Console.WriteLine(colCount.ToString());
                 excel_values = new string[rowCount, colCount];
                 //iterate over the rows and columns and print to the console as it appears in the file
                 //excel is not zero based!!
-                Console.WriteLine("Start reading data from a new excel file");
+               // Console.WriteLine("Start reading data from a new excel file");
                 for (int i = 1; i <= rowCount; i++)
                 {
                     for (int j = 1; j <= colCount; j++)
@@ -175,7 +197,7 @@ namespace newReadExcel
                         }
                     }
                 }
-                Console.WriteLine("Reading new file done");
+              //  Console.WriteLine("Reading new file done");
                 //cleanup
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
@@ -190,6 +212,7 @@ namespace newReadExcel
                 //quit and release
                 xlApp.Quit();
             }
+            button1.Enabled = true;
         }
 
 

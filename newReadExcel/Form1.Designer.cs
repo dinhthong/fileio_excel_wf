@@ -42,7 +42,8 @@ namespace newReadExcel
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(252, 64);
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(227, 64);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 38);
             this.button1.TabIndex = 2;
@@ -54,18 +55,21 @@ namespace newReadExcel
             // 
             this.txt_input.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txt_input.Location = new System.Drawing.Point(12, 64);
-            this.txt_input.Multiline = true;
+            this.txt_input.MaxLength = 10;
             this.txt_input.Name = "txt_input";
-            this.txt_input.Size = new System.Drawing.Size(209, 38);
+            this.txt_input.Size = new System.Drawing.Size(209, 43);
             this.txt_input.TabIndex = 4;
+            this.txt_input.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_input_KeyDown);
             // 
             // txt_show2
             // 
-            this.txt_show2.Location = new System.Drawing.Point(386, 67);
+            this.txt_show2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_show2.Location = new System.Drawing.Point(344, 67);
             this.txt_show2.Multiline = true;
             this.txt_show2.Name = "txt_show2";
-            this.txt_show2.Size = new System.Drawing.Size(447, 32);
+            this.txt_show2.Size = new System.Drawing.Size(489, 32);
             this.txt_show2.TabIndex = 5;
+            this.txt_show2.TextChanged += new System.EventHandler(this.txt_show2_TextChanged);
             // 
             // label1
             // 
@@ -110,6 +114,7 @@ namespace newReadExcel
             // 
             // btn_copy
             // 
+            this.btn_copy.Enabled = false;
             this.btn_copy.Location = new System.Drawing.Point(839, 70);
             this.btn_copy.Name = "btn_copy";
             this.btn_copy.Size = new System.Drawing.Size(75, 32);
@@ -133,6 +138,7 @@ namespace newReadExcel
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
