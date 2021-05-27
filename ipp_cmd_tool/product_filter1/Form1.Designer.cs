@@ -36,6 +36,7 @@
             this.btn_copy = new System.Windows.Forms.Button();
             this.lb_kq = new System.Windows.Forms.Label();
             this.lb_status = new System.Windows.Forms.Label();
+            this.btn_opensetting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txt_filepath
@@ -115,11 +116,22 @@
             this.lb_status.TabIndex = 15;
             this.lb_status.Text = "status";
             // 
+            // btn_opensetting
+            // 
+            this.btn_opensetting.Location = new System.Drawing.Point(695, 360);
+            this.btn_opensetting.Name = "btn_opensetting";
+            this.btn_opensetting.Size = new System.Drawing.Size(75, 23);
+            this.btn_opensetting.TabIndex = 18;
+            this.btn_opensetting.Text = "btn_opensetting";
+            this.btn_opensetting.UseVisualStyleBackColor = true;
+            this.btn_opensetting.Click += new System.EventHandler(this.btn_opensetting_Click);
+            // 
             // ipp_cmd_tool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 266);
+            this.ClientSize = new System.Drawing.Size(770, 381);
+            this.Controls.Add(this.btn_opensetting);
             this.Controls.Add(this.lb_status);
             this.Controls.Add(this.lb_kq);
             this.Controls.Add(this.btn_copy);
@@ -146,6 +158,7 @@
         private System.Windows.Forms.Button btn_copy;
         private System.Windows.Forms.Label lb_kq;
         private System.Windows.Forms.Label lb_status;
+        private System.Windows.Forms.Button btn_opensetting;
     }
 }
 

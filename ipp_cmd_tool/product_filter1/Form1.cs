@@ -5,6 +5,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Linq;
 using System.Configuration;
+//using SavingUserSettings.Properties;
 
 namespace product_filter1
 {
@@ -27,6 +28,7 @@ namespace product_filter1
         string op_file_path;
         string io_dir_text;
         string config_file_name = "ipp_program_config.txt";
+        //string op_template_text;
         /*
          
          https://stackoverflow.com/questions/7462748/how-to-run-code-when-form-is-shown
@@ -54,51 +56,6 @@ namespace product_filter1
                 return "";
             }
         }
-        //private void bt_do_Click(object sender, EventArgs e)
-        //{
-        //    {
-
-        //       // string text_read = txt_1.Text;
-        //        strStart = "<a href=\"/products/";
-        //        strEnd = "</em>";
-        //        while (stop == false)
-        //        {
-        //            product_temp = getBetween(text_read, strStart, strEnd);
-        //            if (product_temp == "")
-        //            {
-        //                stop = true;
-        //                break;
-        //            }
-        //            //code pro add to product list
-        //            newproduct(product_temp);
-        //            txt_2.Text += product_temp;
-        //            txt_2.Text += Environment.NewLine;
-        //            index = text_read.IndexOf(strEnd) + strEnd.Length;
-        //            text_read = text_read.Substring(index);
-        //        }
-        //    }
-        //}
-        //private void newproduct(string product_temp)
-        //{
-        //    string price, name;
-        //    Product newProduct = new Product();
-        //    name = getBetween(product_temp, "title=\"", "\"");
-        //    newProduct.Name = name;
-        //    newProduct.Image_url = getBetween(product_temp, "src=\"//", "\"");
-        //    newProduct.Product_url = getBetween(product_temp, "<strong><a href='", "'>");
-        //    price = getBetween(product_temp, "\"price\"><em>", "₫");
-        //    price = price.Replace(" ", "");
-        //    newProduct.Price = price;
-        //    productList.Add(newProduct);
-        //}
-
-        //private void bt_excel_Click(object sender, EventArgs e)
-        //{
-        // //   toExcelFile();
-        //}
-        // public static int rowCount, colCount;
-        // public static string[,] decode;
-
         private void txt_2_TextChanged(object sender, EventArgs e)
         {
 
@@ -130,7 +87,7 @@ namespace product_filter1
                 txt_show.Text = "NaN";
             }
 
-            txt_input_serial.Text = "2019-0";
+            txt_input_serial.Text = Properties.Settings.Default.char_template;
         }
 
         private void btn_copy_Click(object sender, EventArgs e)
@@ -158,7 +115,7 @@ namespace product_filter1
                 /*
                  Create a new blank .txt file
                  */
-                File.CreateText(System.IO.Directory.GetCurrentDirectory() + @"\" + config_file_name);
+                Properties.Settings.Default.excel_file_path=System.IO.Directory.GetCurrentDirectory() + @"\" + config_file_name;
             }
             else
             {
@@ -166,11 +123,12 @@ namespace product_filter1
                 /*
                  Read the first line as excel file path.
                  */
-                io_dir_text = System.IO.File.ReadAllText(config_txt_path);
+                io_dir_text = Properties.Settings.Default.excel_file_path;
             }
             txt_filepath.Text = io_dir_text;
             op_file_path = io_dir_text;
-            txt_input_serial.Text = "2019-0";
+            //op_template_text= Properties.Settings.Default.char_template;
+            txt_input_serial.Text = Properties.Settings.Default.char_template;
             /*
              move this code block to here to be effective
              */
@@ -189,6 +147,21 @@ namespace product_filter1
             txt_input_serial.Select(txt_input_serial.Text.Length, 0);
         }
 
+        private void btn_opensetting_Click(object sender, EventArgs e)
+        {
+            app_option settingsForm = new app_option();
+            //settingsForm.FormClosed += ;
+            /*
+             Register Form Closing Event
+             */
+            // Show the settings form
+            settingsForm.Show();
+        }
+        private void settingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            txt_input_serial.Text = Properties.Settings.Default.char_template;
+            Console.WriteLine("Set form closed");
+        }
         private void btn_select_file_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -215,12 +188,8 @@ namespace product_filter1
                         https://www.c-sharpcorner.com/article/c-sharp-write-to-file/
                         Write string to the target text file
                      */
-                    File.WriteAllText(config_txt_path, op_file_path);
-                    //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    //AppSettingsSection app = config.AppSettings;
-                    //app.Settings.Add("cg_file_path", op_file_path);
-                    //config.Save(ConfigurationSaveMode.Modified);
 
+                    File.WriteAllText(config_txt_path, op_file_path);
                 }
             }
         }

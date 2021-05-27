@@ -12,3 +12,4 @@ Manage NuGet packages for solution
 [] Allow to limit Input Text Size
 [] Allow to enter password for the excel file. Like entering a password. But it will be encrypted with a KEY (only available to programmer) and save to new line in the txt file
 [] Save input characters template
++ The config file must follows the proper template.
