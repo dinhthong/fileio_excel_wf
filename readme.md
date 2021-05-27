@@ -1,6 +1,8 @@
-both read and write.
-Maybe this kind of programming for excel is obsolete
-Important:
+# Brief
+- A simple tool to match extract data from excel file, used for product manufacturing.
+- Project's requirements: tanhhc
+- It also contains some examples working with IO, .txt files in C#
+# Important:
 the solution must install Microsoft.Office.Interop.Excel via
 Manage NuGet packages for solution
 
