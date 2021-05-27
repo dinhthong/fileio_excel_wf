@@ -170,6 +170,7 @@ namespace product_filter1
             this.Name = "app_option";
             this.Text = "app_option";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.app_option_FormClosed);
+            this.Load += new System.EventHandler(this.app_option_Load);
             this.Shown += new System.EventHandler(this.app_option_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

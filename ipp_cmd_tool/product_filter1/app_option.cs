@@ -53,11 +53,19 @@ namespace product_filter1
             Console.WriteLine(Properties.Settings.Default.excel_password);
             Properties.Settings.Default.Save();
             //txt_filepass.Text = TripleDES.Encrypt(Properties.Settings.Default.excel_password);
+
         }
 
         private void app_option_FormClosed(object sender, FormClosedEventArgs e)
         {
             Console.WriteLine("Form closed 1");
+
+           // ipp_cmd_tool.
+        }
+
+        private void app_option_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

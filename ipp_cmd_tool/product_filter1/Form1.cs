@@ -5,29 +5,28 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Linq;
 using System.Configuration;
-//using SavingUserSettings.Properties;
 
 namespace product_filter1
 {
     public partial class ipp_cmd_tool : Form
     {
         List<string> SerialList = new List<string>();
-        public static int rowCount, colCount;
-        public static int startCol, endCol;
+        private static int rowCount, colCount;
+        private static uint inputCol, outputCol;
         public static string[,] excel_values;
         Excel.Application xlApp;
         Excel.Workbook xlWorkbook;
         Excel._Worksheet xlWorksheet;
         Excel.Range xlRange;
         string ex_file_path;
-        string io_dir_text;
-        string config_file_name = "ipp_program_config.txt";
+        //string io_dir_text;
+        //string config_file_name = "ipp_program_config.txt";
         //string op_template_text;
         /*
          
          https://stackoverflow.com/questions/7462748/how-to-run-code-when-form-is-shown
         */
-        string config_txt_path;
+       // string config_txt_path;
         public ipp_cmd_tool()
         {
             InitializeComponent();
@@ -67,7 +66,7 @@ namespace product_filter1
             int index = SerialList.IndexOf(input_txt_read);
             if (index != -1)
             {
-                txt_show.Text = excel_values[index, startCol + 1];
+                txt_show.Text = excel_values[index, outputCol];
                 btn_copy.Enabled = true;
                 /*
                  Position the Cursor at the Beginning or End of Text in a TextBox Control
@@ -101,8 +100,6 @@ namespace product_filter1
             /*
              move this code block to here to be effective
              */
-            startCol = 1;
-            endCol = 3;
         }
 
         private void txt_input_serial_KeyDown(object sender, KeyEventArgs e)
@@ -123,11 +120,16 @@ namespace product_filter1
              */
             // Show the settings form
             settingsForm.Show();
+            settingsForm.FormClosed += new FormClosedEventHandler(settingsForm_FormClosed);
         }
         private void settingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //txt_input_serial.Text = Properties.Settings.Default.char_template;
+            Console.WriteLine("Set form closed in the parent");
+            inputCol = Properties.Settings.Default.input_col;
+            outputCol = Properties.Settings.Default.output_col;
             txt_input_serial.Text = Properties.Settings.Default.char_template;
-            Console.WriteLine("Set form closed");
+            txt_input_serial.MaxLength = Convert.ToInt32(Properties.Settings.Default.max_in_length);
         }
 
         private void btn_readfile_Click(object sender, EventArgs e)
@@ -183,7 +185,7 @@ namespace product_filter1
                     excel_values = new string[rowCount, colCount];
                     //iterate over the rows and columns and print to the console as it appears in the file
                     //excel is not zero based!!
-                    read_temp_txt = "Reading data from new file: ";
+                    read_temp_txt = "Start reading data from new file: ";
                     int read_size = rowCount * colCount;
                     int read_cnt = 0;
                     for (int i = 1; i <= rowCount; i++)
@@ -201,7 +203,7 @@ namespace product_filter1
                     SerialList.Clear();
                     for (int k = 0; k < rowCount; k++)
                     {
-                        SerialList.Add(excel_values[k, startCol]);
+                        SerialList.Add(excel_values[k, inputCol]);
                     }
                     lb_status.Text = "Reading new file done";
                     //  Console.WriteLine("Reading new file done");
