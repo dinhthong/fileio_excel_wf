@@ -20,13 +20,12 @@ namespace product_filter1
         Excel.Range xlRange;
         string ex_file_path;
         //string io_dir_text;
-        //string config_file_name = "ipp_program_config.txt";
+        string logfile_name = "ipp_app_log.txt";
         //string op_template_text;
         /*
-         
          https://stackoverflow.com/questions/7462748/how-to-run-code-when-form-is-shown
         */
-       // string config_txt_path;
+        string logfile_txt_path;
         public ipp_cmd_tool()
         {
             InitializeComponent();
@@ -35,20 +34,20 @@ namespace product_filter1
         {
 
         }
-        public static string getBetween(string strSource, string strStart, string strEnd)
-        {
-            int Start, End;
-            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-            {
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
-            }
-            else
-            {
-                return "";
-            }
-        }
+        //public static string getBetween(string strSource, string strStart, string strEnd)
+        //{
+        //    int Start, End;
+        //    if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+        //    {
+        //        Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+        //        End = strSource.IndexOf(strEnd, Start);
+        //        return strSource.Substring(Start, End - Start);
+        //    }
+        //    else
+        //    {
+        //        return "";
+        //    }
+        //}
         private void txt_2_TextChanged(object sender, EventArgs e)
         {
 
@@ -71,7 +70,10 @@ namespace product_filter1
                 /*
                  Position the Cursor at the Beginning or End of Text in a TextBox Control
                  */
-                Clipboard.SetText(txt_show.Text);
+                if (Properties.Settings.Default.bool_autocopy)
+                {
+                    Clipboard.SetText(txt_show.Text);
+                }
                 lb_kq.Text = "The output value for input " + input_txt_read.ToString() + " is:";
             }
             else
@@ -81,25 +83,71 @@ namespace product_filter1
             }
 
             txt_input_serial.Text = Properties.Settings.Default.char_template;
+            write_new_log_message("Click Read comamnd with input: " + input_txt_read);
         }
 
         private void btn_copy_Click(object sender, EventArgs e)
         {
             lb_kq.Text = "";
             Clipboard.SetText(txt_show.Text);
+            write_new_log_message("Click CUT button with output: " + txt_show.Text);
             txt_show.Text = "";
             btn_copy.Enabled = false;
-            lb_status.Text = "Copy thanh cong";
+            lb_status.Text = "Cut command thanh cong";
         }
 
         private void ipp_cmd_tool_Shown(object sender, EventArgs e)
         {
-            txt_filepath.Text = Properties.Settings.Default.excel_file_path;
-            ex_file_path = Properties.Settings.Default.excel_file_path;
-            txt_input_serial.Text = Properties.Settings.Default.char_template;
+
             /*
              move this code block to here to be effective
              */
+
+            /*
+             * Create a new file 
+                http://diendan.congdongcviet.com/threads/t57761::lay-duong-dan-folder-trong-csharp.cpp
+        */
+            //  logfile_txt_path = System.IO.Directory.GetCurrentDirectory() + @"\" + logfile_name;
+           // logfile_txt_path = @"D:\" + logfile_name;
+            Console.WriteLine(Properties.Settings.Default.log_file_path);
+            logfile_txt_path = Properties.Settings.Default.log_file_path;
+            /*
+             Create new config file if not exist
+            */
+            if (!File.Exists(logfile_txt_path))
+            {
+                Console.WriteLine("File does not exist. Creating a new file");
+                /*
+                 Scan Drive on computer 
+                https://stackoverflow.com/questions/5195653/how-to-get-all-drives-in-pc-with-net-using-c-sharp
+                 */
+                foreach (var drive in DriveInfo.GetDrives())
+                {
+                    Console.WriteLine("Drive Type: {0}", drive.Name);
+                    Console.WriteLine("Drive Size: {0}", drive.TotalSize);
+                    if (drive.Name != @"C:\" && drive.TotalSize>50000) {
+                        logfile_txt_path = drive.Name + logfile_name;
+                        Properties.Settings.Default.log_file_path = logfile_txt_path;
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                }
+                Console.WriteLine("Create file {0}", logfile_txt_path);
+                File.CreateText(logfile_txt_path);
+            }
+            else
+            {
+                Console.WriteLine("File already exists");
+                /*
+                 Read the first line as excel file path.
+                 */
+            }
+            txt_filepath.Text = Properties.Settings.Default.excel_file_path;
+            ex_file_path = Properties.Settings.Default.excel_file_path;
+            txt_input_serial.Text = Properties.Settings.Default.char_template;
+            inputCol = Properties.Settings.Default.input_col;
+            outputCol = Properties.Settings.Default.output_col;
+            write_new_log_message("New login");
         }
 
         private void txt_input_serial_KeyDown(object sender, KeyEventArgs e)
@@ -134,13 +182,14 @@ namespace product_filter1
 
         private void btn_readfile_Click(object sender, EventArgs e)
         {
+            write_new_log_message("Start reading file with path: " + ex_file_path);
             readExcelFile();
         }
 
         private void btn_select_file_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.InitialDirectory = @"C:\Users\nguye\Downloads\Excel_file_ws\fileio_excel_ws\newReadExcel";
+            openFileDialog1.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
             /*
              To be opened Supported files
              */
@@ -167,12 +216,19 @@ namespace product_filter1
 
         public void readExcelFile()
         {
-            string read_temp_txt;
+            string read_temp_txt, excelpass ="";
             //Create COM Objects. Create a COM object for everything that is referenced
             xlApp = new Excel.Application();
             if (System.IO.File.Exists(ex_file_path))
             {
-                string excelpass = TripleDES.Decrypt(Properties.Settings.Default.excel_password);
+                try
+                {
+                    excelpass = TripleDES.Decrypt(Properties.Settings.Default.excel_password);
+                }
+                catch (Exception e) {
+                    Console.WriteLine("Decrypte password failed!");
+                    excelpass = "";
+                }              
                 try
                 {
                     // If there is error when open excel, SO the excel is protected by password
@@ -206,6 +262,7 @@ namespace product_filter1
                         SerialList.Add(excel_values[k, inputCol]);
                     }
                     lb_status.Text = "Reading new file done";
+                    write_new_log_message("Reading comlete file with total " + read_size.ToString() + " cells");
                     //  Console.WriteLine("Reading new file done");
                     //cleanup
                     GC.Collect();
@@ -231,7 +288,37 @@ namespace product_filter1
             }
             btn_read.Enabled = true;
         }
+        public void write_new_log_message(string input)
+        {
+            FileInfo fi = new FileInfo(logfile_txt_path);
+            while (IsFileLocked(fi))
+            {
 
+            }
+            File.AppendAllText(logfile_txt_path, DateTime.Now.ToString("MM/dd/yyyy h:mm tt: ") + input + Environment.NewLine);
+        }
+
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+
+            //file is not locked
+            return false;
+        }
         //public void toExcelFile()
         //{
         //    //Create COM Objects. Create a COM object for everything that is referenced

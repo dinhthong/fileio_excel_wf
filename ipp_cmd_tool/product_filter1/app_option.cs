@@ -31,12 +31,12 @@ namespace product_filter1
             txt_maxlength.Text = Properties.Settings.Default.max_in_length.ToString();
             txt_incol.Text = Properties.Settings.Default.input_col.ToString();
             txt_outcol.Text = Properties.Settings.Default.output_col.ToString();
+            chkbox_autocopy.Checked = Properties.Settings.Default.bool_autocopy;
             if (Properties.Settings.Default.excel_password != "")
             {
                 decrypted_password = TripleDES.Decrypt(Properties.Settings.Default.excel_password);
                 txt_filepass.Text = decrypted_password;
             }
-
         }
 
         private void save_appop_Click(object sender, EventArgs e)
@@ -46,11 +46,13 @@ namespace product_filter1
             Properties.Settings.Default.max_in_length= Convert.ToUInt32(txt_maxlength.Text);
             Properties.Settings.Default.input_col = Convert.ToUInt32(txt_incol.Text);
             Properties.Settings.Default.output_col = Convert.ToUInt32(txt_outcol.Text);
+            Properties.Settings.Default.bool_autocopy = chkbox_autocopy.Checked;
             /*
              save encrypted password to excel password in settings file
              */
             Properties.Settings.Default.excel_password = TripleDES.Encrypt(txt_filepass.Text);
             Console.WriteLine(Properties.Settings.Default.excel_password);
+
             Properties.Settings.Default.Save();
             //txt_filepass.Text = TripleDES.Encrypt(Properties.Settings.Default.excel_password);
 
@@ -64,6 +66,11 @@ namespace product_filter1
         }
 
         private void app_option_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_select_logfile_Click(object sender, EventArgs e)
         {
 
         }

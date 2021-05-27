@@ -94,5 +94,29 @@ namespace product_filter1.Properties {
                 this["excel_file_path"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string log_file_path {
+            get {
+                return ((string)(this["log_file_path"]));
+            }
+            set {
+                this["log_file_path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool bool_autocopy {
+            get {
+                return ((bool)(this["bool_autocopy"]));
+            }
+            set {
+                this["bool_autocopy"] = value;
+            }
+        }
     }
 }

@@ -38,6 +38,7 @@
             this.lb_status = new System.Windows.Forms.Label();
             this.btn_opensetting = new System.Windows.Forms.Button();
             this.btn_readfile = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // txt_filepath
@@ -79,21 +80,23 @@
             // btn_read
             // 
             this.btn_read.Enabled = false;
-            this.btn_read.Location = new System.Drawing.Point(579, 103);
+            this.btn_read.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_read.Location = new System.Drawing.Point(559, 103);
             this.btn_read.Name = "btn_read";
-            this.btn_read.Size = new System.Drawing.Size(75, 23);
+            this.btn_read.Size = new System.Drawing.Size(95, 36);
             this.btn_read.TabIndex = 10;
-            this.btn_read.Text = "Read MAC";
+            this.btn_read.Text = "Read INPUT";
             this.btn_read.UseVisualStyleBackColor = true;
             this.btn_read.Click += new System.EventHandler(this.btn_read_Click);
             // 
             // btn_copy
             // 
+            this.btn_copy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_copy.Location = new System.Drawing.Point(589, 179);
             this.btn_copy.Name = "btn_copy";
-            this.btn_copy.Size = new System.Drawing.Size(75, 31);
+            this.btn_copy.Size = new System.Drawing.Size(113, 31);
             this.btn_copy.TabIndex = 11;
-            this.btn_copy.Text = "Copy CMD";
+            this.btn_copy.Text = "Cut CMD";
             this.btn_copy.UseVisualStyleBackColor = true;
             this.btn_copy.Click += new System.EventHandler(this.btn_copy_Click);
             // 
@@ -119,11 +122,11 @@
             // 
             // btn_opensetting
             // 
-            this.btn_opensetting.Location = new System.Drawing.Point(694, 259);
+            this.btn_opensetting.Location = new System.Drawing.Point(819, 328);
             this.btn_opensetting.Name = "btn_opensetting";
-            this.btn_opensetting.Size = new System.Drawing.Size(75, 23);
+            this.btn_opensetting.Size = new System.Drawing.Size(26, 20);
             this.btn_opensetting.TabIndex = 18;
-            this.btn_opensetting.Text = "btn_opensetting";
+            this.btn_opensetting.Text = "ST";
             this.btn_opensetting.UseVisualStyleBackColor = true;
             this.btn_opensetting.Click += new System.EventHandler(this.btn_opensetting_Click);
             // 
@@ -137,11 +140,15 @@
             this.btn_readfile.UseVisualStyleBackColor = true;
             this.btn_readfile.Click += new System.EventHandler(this.btn_readfile_Click);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // ipp_cmd_tool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 298);
+            this.ClientSize = new System.Drawing.Size(769, 256);
             this.Controls.Add(this.btn_readfile);
             this.Controls.Add(this.btn_opensetting);
             this.Controls.Add(this.lb_status);
@@ -172,6 +179,7 @@
         private System.Windows.Forms.Label lb_status;
         private System.Windows.Forms.Button btn_opensetting;
         private System.Windows.Forms.Button btn_readfile;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "product_filter1", "product_filter1\product_filter1.csproj", "{5F5062F4-2FD1-4B48-BB11-B0676264981F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_test", "Setup_test\Setup_test.vdproj", "{FA27278A-9AE0-40C4-975B-9498C92870C5}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ipp_read_tool_v1.0", "ipp_read_tool_v1.0\ipp_read_tool_v1.0.vdproj", "{812BCF2D-BCFB-44E6-963B-B264BD2F78BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{5F5062F4-2FD1-4B48-BB11-B0676264981F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5062F4-2FD1-4B48-BB11-B0676264981F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5062F4-2FD1-4B48-BB11-B0676264981F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA27278A-9AE0-40C4-975B-9498C92870C5}.Debug|Any CPU.ActiveCfg = Debug
-		{FA27278A-9AE0-40C4-975B-9498C92870C5}.Release|Any CPU.ActiveCfg = Release
+		{812BCF2D-BCFB-44E6-963B-B264BD2F78BB}.Debug|Any CPU.ActiveCfg = Debug
+		{812BCF2D-BCFB-44E6-963B-B264BD2F78BB}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
