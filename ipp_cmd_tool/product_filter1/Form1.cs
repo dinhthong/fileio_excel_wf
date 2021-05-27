@@ -11,12 +11,6 @@ namespace product_filter1
 {
     public partial class ipp_cmd_tool : Form
     {
-        //private List<Product> productList = new List<Product>();
-        //string strStart;
-        //string strEnd;
-        //string product_temp;
-        //int index;
-        //bool stop = false;
         List<string> SerialList = new List<string>();
         public static int rowCount, colCount;
         public static int startCol, endCol;
@@ -25,7 +19,7 @@ namespace product_filter1
         Excel.Workbook xlWorkbook;
         Excel._Worksheet xlWorksheet;
         Excel.Range xlRange;
-        string op_file_path;
+        string ex_file_path;
         string io_dir_text;
         string config_file_name = "ipp_program_config.txt";
         //string op_template_text;
@@ -101,41 +95,14 @@ namespace product_filter1
 
         private void ipp_cmd_tool_Shown(object sender, EventArgs e)
         {
-            /*
-             http://diendan.congdongcviet.com/threads/t57761::lay-duong-dan-folder-trong-csharp.cpp
-             */
-            config_txt_path = System.IO.Directory.GetCurrentDirectory() + @"\" + config_file_name;
-            Console.WriteLine(config_txt_path);
-            /*
-             Create new config file if not exist
-            */
-            if (!File.Exists(config_txt_path))
-            { 
-                Console.WriteLine("File does not exist. Creating a new file");
-                /*
-                 Create a new blank .txt file
-                 */
-                Properties.Settings.Default.excel_file_path=System.IO.Directory.GetCurrentDirectory() + @"\" + config_file_name;
-            }
-            else
-            {
-                Console.WriteLine("File exists");
-                /*
-                 Read the first line as excel file path.
-                 */
-                io_dir_text = Properties.Settings.Default.excel_file_path;
-            }
-            txt_filepath.Text = io_dir_text;
-            op_file_path = io_dir_text;
-            //op_template_text= Properties.Settings.Default.char_template;
+            txt_filepath.Text = Properties.Settings.Default.excel_file_path;
+            ex_file_path = Properties.Settings.Default.excel_file_path;
             txt_input_serial.Text = Properties.Settings.Default.char_template;
             /*
              move this code block to here to be effective
              */
             startCol = 1;
             endCol = 3;
-            readExcelFile();
-            Console.WriteLine(config_txt_path.ToString());
         }
 
         private void txt_input_serial_KeyDown(object sender, KeyEventArgs e)
@@ -162,6 +129,12 @@ namespace product_filter1
             txt_input_serial.Text = Properties.Settings.Default.char_template;
             Console.WriteLine("Set form closed");
         }
+
+        private void btn_readfile_Click(object sender, EventArgs e)
+        {
+            readExcelFile();
+        }
+
         private void btn_select_file_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -172,24 +145,19 @@ namespace product_filter1
             openFileDialog1.Filter = "Excel (*.xlsx)|*.xlsx";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
-
+            /*
+             If the file path changes
+             */
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (openFileDialog1.FileName != op_file_path)
+                if (openFileDialog1.FileName != ex_file_path)
                 {
-                    btn_read.Enabled = false;
-                    op_file_path = openFileDialog1.FileName;
+                    
+                    ex_file_path = openFileDialog1.FileName;
                     txt_filepath.Text = openFileDialog1.FileName;
-                    /*
-                        if file dir is changed, perform readExcel
-                     */
-                    readExcelFile();
-                    /*
-                        https://www.c-sharpcorner.com/article/c-sharp-write-to-file/
-                        Write string to the target text file
-                     */
-
-                    File.WriteAllText(config_txt_path, op_file_path);
+                    Properties.Settings.Default.excel_file_path = ex_file_path;
+                    Properties.Settings.Default.Save();
+                    btn_read.Enabled = false;
                 }
             }
         }
@@ -200,50 +168,63 @@ namespace product_filter1
             string read_temp_txt;
             //Create COM Objects. Create a COM object for everything that is referenced
             xlApp = new Excel.Application();
-            if (System.IO.File.Exists(op_file_path))
+            if (System.IO.File.Exists(ex_file_path))
             {
-                xlWorkbook = xlApp.Workbooks.Open(op_file_path, ReadOnly: true, Password: "m3e");
-                xlWorksheet = xlWorkbook.Sheets[1];
-                xlRange = xlWorksheet.UsedRange;
-                rowCount = xlRange.Rows.Count;
-                colCount = xlRange.Columns.Count;
-                excel_values = new string[rowCount, colCount];
-                //iterate over the rows and columns and print to the console as it appears in the file
-                //excel is not zero based!!
-                read_temp_txt = "Reading data from new file: ";
-                int read_size = rowCount * colCount;
-                int read_cnt = 0;
-                for (int i = 1; i <= rowCount; i++)
+                string excelpass = TripleDES.Decrypt(Properties.Settings.Default.excel_password);
+                try
                 {
-                    for (int j = 1; j <= colCount; j++)
+                    // If there is error when open excel, SO the excel is protected by password
+                    // Excel.Workbook wb = xlApp.Workbooks.Open(filename）
+                    xlWorkbook = xlApp.Workbooks.Open(ex_file_path, ReadOnly: true, Password: excelpass);
+                    xlWorksheet = xlWorkbook.Sheets[1];
+                    xlRange = xlWorksheet.UsedRange;
+                    rowCount = xlRange.Rows.Count;
+                    colCount = xlRange.Columns.Count;
+                    excel_values = new string[rowCount, colCount];
+                    //iterate over the rows and columns and print to the console as it appears in the file
+                    //excel is not zero based!!
+                    read_temp_txt = "Reading data from new file: ";
+                    int read_size = rowCount * colCount;
+                    int read_cnt = 0;
+                    for (int i = 1; i <= rowCount; i++)
                     {
-                        if (xlRange.Cells[i, j] != null && ((Excel.Range)xlRange.Cells[i, j]).Value2 != null)
+                        for (int j = 1; j <= colCount; j++)
                         {
-                            excel_values[i - 1, j - 1] = ((Excel.Range)xlRange.Cells[i, j]).Value2.ToString();
-                            read_cnt++;
-                            lb_status.Text = read_temp_txt+ read_cnt.ToString() + "/" + read_size.ToString();
+                            if (xlRange.Cells[i, j] != null && ((Excel.Range)xlRange.Cells[i, j]).Value2 != null)
+                            {
+                                excel_values[i - 1, j - 1] = ((Excel.Range)xlRange.Cells[i, j]).Value2.ToString();
+                                read_cnt++;
+                                lb_status.Text = read_temp_txt + read_cnt.ToString() + "/" + read_size.ToString();
+                            }
                         }
                     }
+                    SerialList.Clear();
+                    for (int k = 0; k < rowCount; k++)
+                    {
+                        SerialList.Add(excel_values[k, startCol]);
+                    }
+                    lb_status.Text = "Reading new file done";
+                    //  Console.WriteLine("Reading new file done");
+                    //cleanup
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    /*
+                     * rule of thumb for releasing com objects:
+                     * never use two dots, all COM objects must be referenced and released individually
+                      * ex: [somthing].[something].[something] is bad
+                    */
+                    //Console.WriteLine(excel_values[0, 0] + excel_values[1, 1]);
+                    //close and release
+                    xlWorkbook.Close();
+                    //quit and release
                 }
-                SerialList.Clear();
-                for (int k = 0; k < rowCount; k++)
+                catch (Exception ex)
                 {
-                    SerialList.Add(excel_values[k, startCol]);
+                    //ex.GetType
+                    Console.WriteLine(ex.HResult);
+                    MessageBox.Show("May be wrong password");
+                    // remove the password protected excel to a new folder
                 }
-                lb_status.Text = "Reading new file done";
-                //  Console.WriteLine("Reading new file done");
-                //cleanup
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                /*
-                 * rule of thumb for releasing com objects:
-                 * never use two dots, all COM objects must be referenced and released individually
-                  * ex: [somthing].[something].[something] is bad
-                */
-                //Console.WriteLine(excel_values[0, 0] + excel_values[1, 1]);
-                //close and release
-                xlWorkbook.Close();
-                //quit and release
                 xlApp.Quit();
             }
             btn_read.Enabled = true;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Security.Cryptography;
+
 /*
  * Save app settings, no need to use .text file
  https://stackoverflow.com/questions/1121427/what-is-the-best-way-for-save-and-load-setting-in-my-program
@@ -33,7 +33,7 @@ namespace product_filter1
             txt_outcol.Text = Properties.Settings.Default.output_col.ToString();
             if (Properties.Settings.Default.excel_password != "")
             {
-                decrypted_password = ClsTripleDES.Decrypt(Properties.Settings.Default.excel_password);
+                decrypted_password = TripleDES.Decrypt(Properties.Settings.Default.excel_password);
                 txt_filepass.Text = decrypted_password;
             }
 
@@ -49,10 +49,10 @@ namespace product_filter1
             /*
              save encrypted password to excel password in settings file
              */
-            Properties.Settings.Default.excel_password = ClsTripleDES.Encrypt(txt_filepass.Text);
+            Properties.Settings.Default.excel_password = TripleDES.Encrypt(txt_filepass.Text);
             Console.WriteLine(Properties.Settings.Default.excel_password);
             Properties.Settings.Default.Save();
-            //txt_filepass.Text = ClsTripleDES.Encrypt(Properties.Settings.Default.excel_password);
+            //txt_filepass.Text = TripleDES.Encrypt(Properties.Settings.Default.excel_password);
         }
 
         private void app_option_FormClosed(object sender, FormClosedEventArgs e)
@@ -61,81 +61,5 @@ namespace product_filter1
         }
     }
 
-    public class ClsTripleDES
-    {
-
-        private const string mysecurityKey = "entrepreneur";
-
-        public static string Encrypt(string TextToEncrypt)
-        {
-            byte[] MyEncryptedArray = UTF8Encoding.UTF8
-               .GetBytes(TextToEncrypt);
-
-            MD5CryptoServiceProvider MyMD5CryptoService = new
-               MD5CryptoServiceProvider();
-
-            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash
-               (UTF8Encoding.UTF8.GetBytes(mysecurityKey));
-
-            MyMD5CryptoService.Clear();
-
-            var MyTripleDESCryptoService = new
-               TripleDESCryptoServiceProvider();
-
-            MyTripleDESCryptoService.Key = MysecurityKeyArray;
-
-            MyTripleDESCryptoService.Mode = CipherMode.ECB;
-
-            MyTripleDESCryptoService.Padding = PaddingMode.PKCS7;
-
-            var MyCrytpoTransform = MyTripleDESCryptoService
-               .CreateEncryptor();
-
-            byte[] MyresultArray = MyCrytpoTransform
-               .TransformFinalBlock(MyEncryptedArray, 0,
-               MyEncryptedArray.Length);
-
-            MyTripleDESCryptoService.Clear();
-
-            return Convert.ToBase64String(MyresultArray, 0,
-               MyresultArray.Length);
-        }
-
-
-
-        public static string Decrypt(string TextToDecrypt)
-        {
-            byte[] MyDecryptArray = Convert.FromBase64String
-               (TextToDecrypt);
-
-            MD5CryptoServiceProvider MyMD5CryptoService = new
-               MD5CryptoServiceProvider();
-
-            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash
-               (UTF8Encoding.UTF8.GetBytes(mysecurityKey));
-
-            MyMD5CryptoService.Clear();
-
-            var MyTripleDESCryptoService = new
-               TripleDESCryptoServiceProvider();
-
-            MyTripleDESCryptoService.Key = MysecurityKeyArray;
-
-            MyTripleDESCryptoService.Mode = CipherMode.ECB;
-
-            MyTripleDESCryptoService.Padding = PaddingMode.PKCS7;
-
-            var MyCrytpoTransform = MyTripleDESCryptoService
-               .CreateDecryptor();
-
-            byte[] MyresultArray = MyCrytpoTransform
-               .TransformFinalBlock(MyDecryptArray, 0,
-               MyDecryptArray.Length);
-
-            MyTripleDESCryptoService.Clear();
-
-            return UTF8Encoding.UTF8.GetString(MyresultArray);
-        }
-    }
 
 }
